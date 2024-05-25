@@ -5,9 +5,10 @@ import android.app.Application
 class ApplicationLevelDragger : Application() {
 
 
-    lateinit var userRegistrationCompent: UserRegistrationCompent
+    lateinit var appLevelComponent: AppLevelComponent
     override fun onCreate() {
         super.onCreate()
-        userRegistrationCompent = DaggerUserRegistrationCompent.factory().Create(3)
+
+        appLevelComponent =  DaggerAppLevelComponent.builder().build()
     }
 }

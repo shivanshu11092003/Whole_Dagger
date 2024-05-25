@@ -20,10 +20,7 @@ class MainActivity : ComponentActivity() {
     lateinit var userRegistrationService: UserRegistrationService
 
 
-    @Inject
-    lateinit var emailService: emailService
-    @Inject
-    lateinit var emailService1: emailService
+
 
 
 
@@ -58,7 +55,11 @@ class MainActivity : ComponentActivity() {
          *
          * if  .emailServiceModule(EmailServiceModule(3))  do not call this (if module accepting some value so we have create module by ourself )
          * if we donot want to make Module then we have then we have to use of ""Factory""**/
-        (application as ApplicationLevelDragger).userRegistrationCompent.inject(this)
+        val appComponent=(application as ApplicationLevelDragger).appLevelComponent
+        val userRegistrationCompent = DaggerUserRegistrationCompent.factory()
+            .Create(4,appComponent).inject(this)
+
+
 
 
         userRegistrationService.registerUser("Shivanshugupta@gmail.com","12345")

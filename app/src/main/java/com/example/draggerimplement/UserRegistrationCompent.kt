@@ -4,8 +4,8 @@ import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
 
-@Singleton
-@Component(modules = [UserRegistrationModule::class,EmailServiceModule::class])
+@ActivityScope
+@Component(dependencies = [AppLevelComponent::class], modules = [UserRegistrationModule::class,EmailServiceModule::class])
 interface UserRegistrationCompent {
 //    //component ke through ham batate hai ki hame konsa object cchhaihye
 //
@@ -19,11 +19,12 @@ interface UserRegistrationCompent {
                     *  let go then    */
     fun inject(mainActivity: MainActivity)
 
-    fun getemailService() : emailService
+
 
     @Component.Factory
     interface Factory{
-        fun Create(@BindsInstance retryCount: Int) :UserRegistrationCompent
+        /**factory bracket ke andar vale object ko lekar UserRegistrationComponent create karegi **/
+        fun Create(@BindsInstance retryCount: Int,appLevelComponent: AppLevelComponent) :UserRegistrationCompent
 
     }
 }
